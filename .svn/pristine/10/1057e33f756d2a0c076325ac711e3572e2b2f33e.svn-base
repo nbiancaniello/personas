@@ -1,0 +1,42 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.List;
+
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.NotifyChange;
+
+import com.mercel.personas.model.*;
+import com.mercel.personas.service.*;
+
+public class VistaPersona {
+
+	private List<Persona> personaList;
+	private Persona persona;
+	
+	private PersonaServiceImpl personaServiceImpl = new PersonaServiceImpl(); 
+	
+	public List<Persona> getPersonaList() {
+		return personaList;
+	}
+	public void setPersonaList(List<Persona> personaList) {
+		this.personaList = personaList;
+	}
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+	
+	 @Command
+	 @NotifyChange("personaList")
+	 public void search(){
+		 
+		try{
+			 personaList = personaServiceImpl.findPersonas();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	 }
+}

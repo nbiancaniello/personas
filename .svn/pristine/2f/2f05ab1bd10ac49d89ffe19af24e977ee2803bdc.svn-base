@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+<window apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.ListadoPersonas')">
+    <separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+		    <label value="Filtro" class="boxlabel" />
+			<combobox id="cmbFiltro" width="150px" model="@bind(vm.filtro)" selectedItem="@bind(vm.itemCombo)">
+		        <template model="filtro">
+		            <comboitem label="@load(each)" />
+		        </template>
+		    </combobox> <textbox value="@bind(vm.keyword)" /> <button label="Buscar" onClick="@command('search')" /> <button label="Nuevo" autodisable="self" onClick="@command('nuevaPersona')" />
+	    </hbox>
+    </vlayout>
+    <separator spacing="10px" />
+    <vlayout>
+    	<hbox align="center">
+			<listbox mold="paging" height="150px" width="1000px" model="@load(vm.personaList)" multiple="false"
+					selectedItem="@bind(vm.selectedPersona)" emptyMessage="El listado de personas está vacío">
+		        <listhead>
+		            <listheader label="Id" onClick="@command('sort', listheader=self, sortField='id') "/>
+		            <listheader label="Nombre" onClick="@command('sort', listheader=self, sortField='nombre')"/>
+		            <listheader label="Apellido" onClick="@command('sort', listheader=self, sortField='apellido')"/>
+		            <listheader label="Tipo Doc" onClick="@command('sort', listheader=self, sortField='tipo_doc')"/>
+		            <listheader label="Nro Doc" onClick="@command('sort', listheader=self, sortField='nro_doc')"/>
+		            <listheader label="Fecha de Nacimiento" onClick="@command('sort', listheader=self, sortField='fecha_nacimiento')"/>
+		            <listheader label=""/>
+		            <listheader label=""/>
+		        </listhead>
+		        <template name="model">
+		            <listitem>
+		                <listcell label="@load(each.id)"></listcell>
+		                <listcell label="@load(each.nombre)"></listcell>
+		                <listcell label="@load(each.apellido)"></listcell>
+		                <listcell label="@load(each.tipo_doc.desc)"></listcell>
+		                <listcell label="@load(each.nro_doc)"></listcell>
+		                <listcell label="@load(each.fecha_nacimiento) @converter('formatedDate',format='dd/MM/yyyy')"></listcell>
+		                <listcell>
+		   					<label value="Editar" onClick="@command('editarPersona')"/>
+			   			</listcell>	
+			   			<listcell>
+			   				<label value="Eliminar" onClick="@command('eliminarPersona')"/>
+			   			</listcell>	
+		            </listitem>
+		        </template>
+			</listbox>
+		</hbox>
+	</vlayout>
+	<vlayout>
+		<paging  width="1000px" onPaging="@command('search')" pageSize="@load(vm.limit)" totalSize="@load(vm.cant)" activePage="@save(vm.activePage)"/>
+	</vlayout>
+	<separator spacing="10px" />
+	<vlayout>
+		<hbox align="center">
+			Cantidad de registros recuperados: <label value="@bind(vm.cant)" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+</window>
+</zk>

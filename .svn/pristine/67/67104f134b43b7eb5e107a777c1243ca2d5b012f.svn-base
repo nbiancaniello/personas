@@ -1,0 +1,88 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+
+import com.inssjp.commons.paging.PagingLoadConfig;
+import com.mercel.personas.model.*;
+import com.mercel.personas.service.*;
+
+public class VistaPersona {
+
+	private List<Persona> personaList = new ArrayList<Persona>();
+	private Persona persona = new Persona();
+	private int cant = 0;
+	private int limit = 3;
+	private int activePage = 0;
+	private String sortField = new String();
+	
+	private PersonaServiceImpl personaServiceImpl = new PersonaServiceImpl(); 
+	
+	@Init
+    public void init() {
+		setCant(0);
+		search();
+    }
+	
+	@NotifyChange("personaList")
+	public void setActivePage(int activePage) {
+		this.activePage = activePage;
+	}
+
+	@Command
+	@NotifyChange({"personaList","cant"})
+	public void search(){
+		
+		setPersonaList(personaServiceImpl.findPersonas(new PagingLoadConfig(limit,activePage * limit), sortField));
+		actualizarCantidad();
+	}
+	
+	@Command
+	@NotifyChange({"personaList"})
+	public void sort(){
+		
+		setPersonaList(personaServiceImpl.findPersonas(new PagingLoadConfig(limit,activePage * limit), sortField));
+	}
+	
+	public void actualizarCantidad() {
+		setCant(personaServiceImpl.getPersonasCantidad());
+	}
+	
+	public List<Persona> getPersonaList() {
+		return personaList;
+	}
+	
+	public void setPersonaList(List<Persona> personaList) {
+		this.personaList = personaList;
+	}
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+	
+	 public int getCant() {
+		return cant;
+	}
+
+	public void setCant(int cant) {
+		this.cant = cant;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	public int getActivePage() {
+		return activePage;
+	}
+}

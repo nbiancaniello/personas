@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+<window apply="org.zkoss.bind.BindComposer" mode="modal" title="Dialog" border="normal" position="center,center"
+		viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.DialogABMPersonas',Persona=arg.Persona, esNuevo=arg.esNuevo)" width="650px" >
+    <vlayout>
+	    <hbox align="center">
+        	<label value="Id" class="boxlabel"/> <textbox value="@bind(vm.id)" disabled="true" width="50px" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+        <label value="Nombre" class="boxlabel"/> <textbox value="@bind(vm.nombre)" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+        <label value="Apellido" class="boxlabel"/> <textbox value="@bind(vm.apellido)" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+        <label value="Tipo Doc" class="boxlabel"/> <combobox id="cmbTipoDoc" width="150px" model="@load(vm.tipoDocumentoList)" value="@load(vm.persona.tipo_doc)" readonly="true" selectedItem="@bind(vm.selectedTipoDoc)">
+		<template name="model"> <comboitem label="@bind(each.desc)" value="(each)" /> </template> </combobox>
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+	<vlayout>
+	    <hbox align="center">
+        <label value="Nro Doc" class="boxlabel"/> <textbox value="@bind(vm.nro_doc)" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+	<vlayout>
+	    <hbox align="center"> 
+        <label value="F. Nac." class="boxlabel"/> <textbox value="@bind(vm.fecha_nacimiento)" /> 
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+	<vlayout>
+	    <hbox align="center">
+        <button label="Guardar" onClick="@command('save') @global-command('dlgSave',result=vm.persona)" />
+        <button label="Cancelar" onClick="@command('close')" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+</window>
+</zk>

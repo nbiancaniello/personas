@@ -1,0 +1,120 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zul.Window;
+
+import com.mercel.personas.model.Persona;
+import com.mercel.personas.model.TipoDocumento;
+import com.mercel.personas.service.TipoDocumentoServiceImpl;;
+
+public class DialogABMPersonas extends SelectorComposer<Component> {
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String nombre;
+    private String apellido;
+    private TipoDocumento selectedTipoDoc;
+    private List<TipoDocumento> tipoDocumentoList = new ArrayList<TipoDocumento>();
+    private TipoDocumentoServiceImpl tipoDocumentoServiceImpl = new TipoDocumentoServiceImpl();
+    private String nro_doc;
+    private String fecha_nacimiento;
+    private Persona persona;
+    
+    @Init
+	public void init(@BindingParam("Persona")Persona persona, @BindingParam("esNuevo")Boolean esNuevo){
+    	
+    	setTipoDocumentoList(tipoDocumentoServiceImpl.getTipoDocumentos());
+    	
+    	if (!esNuevo){
+	    	setId(persona.getId());
+	    	setNombre(persona.getNombre());
+	    	setApellido(persona.getApellido());
+	    	setSelectedTipoDoc(persona.getTipo_doc());
+	    	setNro_doc(persona.getNro_doc());
+	    	setFecha_nacimiento(persona.getFecha_nacimiento());
+    	}	
+	}
+ 
+    @Command
+	public void save(@ContextParam(ContextType.VIEW) Window comp) {
+    	persona = new Persona(getId(),getNombre(),getApellido(),getSelectedTipoDoc(),getNro_doc(),getFecha_nacimiento());
+		comp.detach();
+	}
+    
+    @Command
+	public void close(@ContextParam(ContextType.VIEW) Window comp) {
+		comp.detach();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	
+	public TipoDocumento getSelectedTipoDoc() {
+		return selectedTipoDoc;
+	}
+
+	public void setSelectedTipoDoc(TipoDocumento selectedTipoDoc) {
+		this.selectedTipoDoc = selectedTipoDoc;
+	}
+
+	public String getNro_doc() {
+		return nro_doc;
+	}
+
+	public void setNro_doc(String nro_doc) {
+		this.nro_doc = nro_doc;
+	}
+
+	public String getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public void setFecha_nacimiento(String fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+
+	public List<TipoDocumento> getTipoDocumentoList() {
+		return tipoDocumentoList;
+	}
+
+	public void setTipoDocumentoList(List<TipoDocumento> tipoDocumentoList) {
+		this.tipoDocumentoList = tipoDocumentoList;
+	}
+}

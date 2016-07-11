@@ -1,0 +1,102 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zul.Window;
+
+import com.mercel.personas.model.CuentaBancaria;
+import com.mercel.personas.model.Persona;
+import com.mercel.personas.model.TipoDocumento;
+import com.mercel.personas.service.PersonaServiceImpl;
+import com.mercel.personas.service.TipoDocumentoServiceImpl;
+
+public class PersonasABM extends SelectorComposer<Component> {
+    private static final long serialVersionUID = 1L;
+    private TipoDocumento selectedTipoDoc;
+    private List<TipoDocumento> tipoDocumentoList = new ArrayList<TipoDocumento>();
+    private TipoDocumentoServiceImpl tipoDocumentoServiceImpl = new TipoDocumentoServiceImpl();
+    private Persona persona;
+    private List<String> listadoErrores = new ArrayList<String>();
+    private PersonaServiceImpl personaServiceImpl = new PersonaServiceImpl();
+    //private List<CuentaBancaria> cuentasBancarias = new ArrayList<CuentaBancaria>();
+    
+    @Init
+	public void init(@BindingParam("Persona")Persona persona, @BindingParam("esNuevo")Boolean esNuevo){
+    	setTipoDocumentoList(tipoDocumentoServiceImpl.getTipoDocumentos());
+    	
+    	if (!esNuevo){
+	    	setPersona(persona);
+    	}	
+	}
+
+    @Command
+    @NotifyChange({"listadoErrores"})
+	public void save(@ContextParam(ContextType.VIEW) Window comp) {
+  
+    	setListadoErrores(personaServiceImpl.validarDatos(persona));
+    	
+    	if (listadoErrores.isEmpty()) {
+    		personaServiceImpl.save(persona);
+    		comp.detach();
+    		BindUtils.postGlobalCommand(null, null, "refrescarListado", null);
+    	}
+	}
+    
+    @Command
+	public void close(@ContextParam(ContextType.VIEW) Window comp) {
+		comp.detach();
+	}
+    
+    @Command
+    public void verCuentas() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("nombre", persona.getNombre());
+		map.put("apellido", persona.getApellido());
+		map.put("listado", persona.getCuentasBancarias());
+		Executions.createComponents("CuentasBancariasABM.zul", null,map);
+    }
+	
+	public TipoDocumento getSelectedTipoDoc() {
+		return selectedTipoDoc;
+	}
+
+	public void setSelectedTipoDoc(TipoDocumento selectedTipoDoc) {
+		this.selectedTipoDoc = selectedTipoDoc;
+	}
+	
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+
+	public List<TipoDocumento> getTipoDocumentoList() {
+		return tipoDocumentoList;
+	}
+
+	public void setTipoDocumentoList(List<TipoDocumento> tipoDocumentoList) {
+		this.tipoDocumentoList = tipoDocumentoList;
+	}
+
+	public List<String> getListadoErrores() {
+		return listadoErrores;
+	}
+
+	public void setListadoErrores(List<String> listadoErrores) {
+		this.listadoErrores = listadoErrores;
+	}
+}

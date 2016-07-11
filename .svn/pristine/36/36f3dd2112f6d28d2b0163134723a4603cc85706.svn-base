@@ -1,0 +1,74 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.Listen;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Window;
+
+public class DialogABMPersonas extends SelectorComposer<Component> {
+    private static final long serialVersionUID = 1L;
+    private String id;
+    private String nombre;
+    private String apellido;
+    private String tipo_doc;
+    private String nro_doc;
+    private String fecha_nacimiento;
+     
+    @Wire
+    Window modalDialog;
+     
+    @Listen("onClick = #closeBtn")
+    public void showModal(Event e) {
+        modalDialog.detach();
+    }
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getTipo_doc() {
+		return tipo_doc;
+	}
+
+	public void setTipo_doc(String tipo_doc) {
+		this.tipo_doc = tipo_doc;
+	}
+
+	public String getNro_doc() {
+		return nro_doc;
+	}
+
+	public void setNro_doc(String nro_doc) {
+		this.nro_doc = nro_doc;
+	}
+
+	public String getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public void setFecha_nacimiento(String fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+}

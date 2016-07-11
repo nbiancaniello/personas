@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class>
+   <persona id="1">
+      <nombre>Nicolas</nombre>
+      <apellido>Biancaniello</apellido>
+      <tipo_doc>DNI</tipo_doc>
+      <nro_doc>32483157</nro_doc>
+	  <fecha_nacimiento>01/09/1986</fecha_nacimiento>
+   </persona>
+   <persona id="2">
+      <nombre>Nicolas</nombre>
+      <apellido>Lobruno</apellido>
+      <tipo_doc>DNI</tipo_doc>
+      <nro_doc>38902437</nro_doc>
+	  <fecha_nacimiento>10/12/1993</fecha_nacimiento>
+   </persona>
+   <persona id="3">
+      <nombre>Alejandro</nombre>
+      <apellido>Acuña</apellido>
+      <tipo_doc>DNI</tipo_doc>
+      <nro_doc>31992477</nro_doc>
+	  <fecha_nacimiento>29/10/1985</fecha_nacimiento>
+   </persona>
+   <persona id="4">
+      <nombre>Alejandro</nombre>
+      <apellido>Valencia</apellido>
+      <tipo_doc>DNI</tipo_doc>
+      <nro_doc>35441820</nro_doc>
+	  <fecha_nacimiento>22/08/1990</fecha_nacimiento>
+   </persona>
+   <persona id="5">
+      <nombre>Alejo</nombre>
+      <apellido>Naveira</apellido>
+      <tipo_doc>DNI</tipo_doc>
+      <nro_doc>27465109</nro_doc>
+	  <fecha_nacimiento>31/03/1980</fecha_nacimiento>
+   </persona>
+</class>

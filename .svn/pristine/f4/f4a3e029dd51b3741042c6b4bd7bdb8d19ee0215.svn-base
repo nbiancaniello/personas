@@ -1,0 +1,43 @@
+package com.mercel.personas.service;
+
+import java.util.List;
+
+import com.inssjp.commons.paging.PagingLoadConfig;
+import com.mercel.personas.model.Persona;
+//import com.mercel.personas.persistence.PersonaDAO;
+//import com.mercel.personas.persistence.PersonaDAOImpl;
+import com.mercel.personas.persistence.PersonaXMLDAOImpl;
+import com.mercel.personas.persistence.PersonaJSONDAOImpl;
+
+
+public class PersonaServiceImpl implements PersonaService {
+	
+	PersonaJSONDAOImpl personaJSONDAO = new PersonaJSONDAOImpl();
+	//PersonaXMLDAOImpl personaXMLDAO = new PersonaXMLDAOImpl();
+	//PersonaDAO personaDAO = new PersonaDAOImpl();
+	
+	public PersonaServiceImpl(){
+	
+	}
+	
+	public List<Persona> findPersonas(){
+		
+		return personaJSONDAO.findPersonas();
+		//return personaXMLDAO.findPersonas();
+		//return personaDAO.findPersonas();
+	};
+	
+	public List<Persona> findPersonas(PagingLoadConfig paginado, String sortField, String sortOrder, String keyword, String columnSearch){
+				
+		return personaJSONDAO.findPersonas(paginado, sortField, sortOrder,keyword,columnSearch);
+		//return personaXMLDAO.findPersonas(paginado, sortField, sortOrder,keyword,columnSearch);
+		//return personaDAO.findPersonas(paginado, sortField, sortOrder,keyword,columnSearch);
+	};
+	
+	public int getPersonasCantidad(){
+		
+		return personaJSONDAO.getPersonasCantidad();
+		//return personaXMLDAO.getPersonasCantidad();
+		//return personaDAO.getPersonasCantidad();
+	} 
+}

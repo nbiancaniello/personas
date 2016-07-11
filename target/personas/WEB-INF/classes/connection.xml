@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<connectionstrings>
+	<connection>
+          <name>oracle</name>
+          <connector>oracle.jdbc.driver.OracleDriver</connector>
+          <url>jdbc:oracle:thin:@//192.168.1.115:1521/trazadesa11g</url>
+          <user>trainee</user>
+          <pass>trainee</pass>
+    </connection>
+</connectionstrings>

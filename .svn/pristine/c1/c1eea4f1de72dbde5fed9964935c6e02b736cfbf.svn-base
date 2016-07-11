@@ -1,0 +1,13 @@
+package com.mercel.personas.service;
+
+import java.util.List;
+
+import com.mercel.personas.model.Persona;
+import com.mercel.personas.persistence.*;
+
+public interface PersonaService {
+
+	public List<Persona> findPersonas();
+	
+	public int getPersonasCantidad();
+}

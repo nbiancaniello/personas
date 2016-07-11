@@ -1,0 +1,133 @@
+package com.mercel.personas.model;
+
+import java.util.Comparator;
+
+public class Persona{
+	private String id;
+	private String nombre;
+	private String apellido;
+	private String tipo_doc;
+	private String nro_doc;
+	private String fecha_nacimiento;
+	
+	public Persona(){		
+	}
+	
+	public Persona (String id, String nombre, String apellido, String tipo_doc, String nro_doc, String fecha_nacimiento){
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.tipo_doc = tipo_doc;
+		this.nro_doc = nro_doc;
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+	
+	public static Comparator<Persona> COMPARAR_POR_ID = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.id.compareTo(other.id);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_ID_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.id.compareTo(other.id) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NOMBRE = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.nombre.compareTo(other.nombre);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NOMBRE_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.nombre.compareTo(other.nombre) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_APELLIDO = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.apellido.compareTo(other.apellido);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_APELLIDO_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.apellido.compareTo(other.apellido) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_TIPODOC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.tipo_doc.compareTo(other.tipo_doc);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_TIPODOC_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.tipo_doc.compareTo(other.tipo_doc) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NRODOC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.nro_doc.compareTo(other.nro_doc);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NRODOC_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.nro_doc.compareTo(other.nro_doc) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_FECHANAC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.fecha_nacimiento.compareTo(other.fecha_nacimiento);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_FECHANAC_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.fecha_nacimiento.compareTo(other.fecha_nacimiento) * -1);
+        }
+    };
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public String getTipo_doc() {
+		return tipo_doc;
+	}
+	public void setTipo_doc(String tipo_doc) {
+		this.tipo_doc = tipo_doc;
+	}
+	public String getNro_doc() {
+		return nro_doc;
+	}
+	public void setNro_doc(String nro_doc) {
+		this.nro_doc = nro_doc;
+	}
+	public String getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+	public void setFecha_nacimiento(String fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+}

@@ -1,0 +1,64 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zul.Window;
+
+import com.mercel.personas.model.CuentaBancaria;
+
+public class CuentasBancariasABM extends SelectorComposer<Component> {
+    private static final long serialVersionUID = 1L;
+    private CuentaBancaria cuenta;
+    private String cliente;
+    private List<CuentaBancaria> listado = new ArrayList<CuentaBancaria>();
+	
+    @Init
+	public void init(@BindingParam("nombre")String nombre, @BindingParam("apellido")String apellido, @BindingParam("listado")ArrayList<CuentaBancaria> listado){
+    	cliente = "Cliente: " + (apellido + ", " + nombre).toUpperCase();
+    	cuenta.setId((listado.get(listado.size()-1).getId())+1);
+	}
+
+    @Command
+	public void save(@ContextParam(ContextType.VIEW) Window comp) {
+    		listado.add(cuenta);
+    		comp.detach();
+    		//BindUtils.postGlobalCommand(null, null, "refrescarListado", null);
+	}
+    
+    @Command
+	public void close(@ContextParam(ContextType.VIEW) Window comp) {
+		comp.detach();
+	}
+
+	public String getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
+	}
+
+	public CuentaBancaria getCuenta() {
+		return cuenta;
+	}
+
+	public void setCuenta(CuentaBancaria cuenta) {
+		this.cuenta = cuenta;
+	}
+
+	public List<CuentaBancaria> getListado() {
+		return listado;
+	}
+
+	public void setListado(List<CuentaBancaria> listado) {
+		this.listado = listado;
+	}  
+}

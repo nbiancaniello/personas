@@ -1,0 +1,42 @@
+package com.mercel.personas.model;
+
+public class CuentaBancaria {
+	
+	private int id;
+	private int nroCuenta;
+	private String nombreBanco;
+	
+	public CuentaBancaria(){
+		
+	}
+	
+	public CuentaBancaria(int id, int nroCuenta, String nombreBanco){
+		this.id = id;
+		this.nroCuenta = nroCuenta;
+		this.nombreBanco = nombreBanco;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getNroCuenta() {
+		return nroCuenta;
+	}
+
+	public void setNroCuenta(int nroCuenta) {
+		this.nroCuenta = nroCuenta;
+	}
+
+	public String getNombreBanco() {
+		return nombreBanco;
+	}
+
+	public void setNombreBanco(String nombreBanco) {
+		this.nombreBanco = nombreBanco;
+	}
+}

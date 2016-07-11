@@ -1,0 +1,40 @@
+package com.mercel.personas.service;
+
+import java.util.List;
+import javax.ejb.EJB;
+import com.mercel.personas.model.Persona;
+import com.mercel.personas.persistence.*;
+
+
+public class PersonaServiceImpl implements PersonaService {
+	
+	@EJB(mappedName = "java:global/personas/PersonaDAOImpl")
+	PersonaDAO personaDAO;
+	
+	public PersonaServiceImpl(){
+	
+	}
+	
+	public List<Persona> findPersonas(){
+		
+		try{
+			return personaDAO.findPersonas();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	};
+	
+	public int getPersonasCantidad(){
+		
+		try{
+			return personaDAO.getPersonasCantidad();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		return 0;		
+		
+	} 
+}

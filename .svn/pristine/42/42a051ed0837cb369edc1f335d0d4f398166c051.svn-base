@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+<window apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.VistaPersona')">
+<zscript>
+<![CDATA[
+	import java.util.Comparator;
+	import com.mercel.personas.persistence.ListadoComparador;
+    Comparator cIdAsc = new ListadoComparador(true, 1);
+    Comparator cIdDsc = new ListadoComparador(false, 1);
+    Comparator cNombreAsc = new ListadoComparador(true, 2);
+    Comparator cNombreDsc = new ListadoComparador(false, 2);
+    Comparator cApellidoAsc = new ListadoComparador(true, 3);
+    Comparator cApellidoDsc = new ListadoComparador(false, 3);
+    Comparator cTipoAsc = new ListadoComparador(true, 4);
+    Comparator cTipoDsc = new ListadoComparador(false, 4);
+    Comparator cNroDocAsc = new ListadoComparador(true, 5);
+    Comparator cNroDocDsc = new ListadoComparador(false, 5);
+    Comparator cFecNacAsc = new ListadoComparador(true, 6);
+    Comparator cFecNacDsc = new ListadoComparador(false, 6);]]>
+</zscript>
+	<hbox align="center">
+    	<button label="Buscar" onClick="@command('search')" />
+    	Cantidad de registros recuperados: <label value="@bind(vm.cant)" />
+	</hbox>
+	<listbox id="listbox" mold="paging" height="160px" model="@bind(vm.personaList)" emptyMessage="El listado de personas está vacío">
+        <listhead>
+            <listheader label="Id" sortAscending="${cIdAsc}" sortDescending="${cIdDsc}"/>
+            <listheader label="Nombre" sortAscending="${cNombreAsc}" sortDescending="${cNombreDsc}"/>
+            <listheader label="Apellido" sortAscending="${cApellidoAsc}" sortDescending="${cApellidoDsc}"/>
+            <listheader label="Tipo Doc" sortAscending="${cTipoAsc}" sortDescending="${cTipoDsc}"/>
+            <listheader label="Nro Doc" sortAscending="${cNroDocAsc}" sortDescending="${cNroDocDsc}"/>
+            <listheader label="F. Nac." sortAscending="${cFecNacAsc}" sortDescending="${cFecNacDsc}"/>
+        </listhead>
+        <template name="model">
+            <listitem>
+                <listcell label="@bind(each.id)"></listcell>
+                <listcell label="@bind(each.nombre)"></listcell>
+                <listcell label="@bind(each.apellido)"></listcell>
+                <listcell label="@bind(each.tipo_doc)"></listcell>
+                <listcell label="@bind(each.nro_doc)"></listcell>
+                <listcell label="@bind(each.fecha_nacimiento)"></listcell>
+            </listitem>
+        </template>
+	</listbox>
+	<paging pageSize="@load(vm.limit)" totalSize="@load(vm.cant)" activePage="@save(vm.activePage)"/>
+</window>
+</zk>

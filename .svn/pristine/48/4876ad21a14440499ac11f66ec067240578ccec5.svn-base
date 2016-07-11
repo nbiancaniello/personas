@@ -1,0 +1,24 @@
+package com.mercel.personas.persistence;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mercel.personas.model.Persona;
+
+public class PersonaDAOImpl implements PersonaDAO{
+	public List<Persona> personas = new ArrayList<Persona>();
+	
+	public PersonaDAOImpl() {
+		
+		personas.add(new Persona(1,"Nicolas","Biancaniello","DNI",32483157,"01-09-1986"));		
+		personas.add(new Persona(2,"Nicolas","Lobruno","DNI",38902437,"10-12-1993"));
+	}
+	
+	public List<Persona> findPersonas(){
+		return personas;
+	}
+	
+	public int getPersonasCantidad(){
+		return personas.size();
+	}
+}

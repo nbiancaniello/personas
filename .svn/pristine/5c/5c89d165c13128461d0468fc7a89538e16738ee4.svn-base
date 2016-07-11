@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	 <session-factory>
+	  <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+	  <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.1.115:1521:trazadesa11g</property>
+	  <property name="hibernate.connection.username">TRAINEE</property>
+	  <property name="hibernate.connection.password">trainee</property>
+	  <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+<!-- 	  <property name="hibernate.default_schema">trazadesa11g</property> -->
+	  <property name="show_sql">true</property>
+	   
+	  <mapping class="com.mercel.personas.model.Persona"/>
+	  <mapping class="com.mercel.personas.model.TipoDocumento"/>
+	  <mapping class="com.mercel.personas.model.CuentaBancaria"/>
+	   
+	</session-factory>
+</hibernate-configuration>

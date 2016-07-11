@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+<window apply="org.zkoss.bind.BindComposer" mode="modal" title="Persona" border="normal" position="center,center"
+		viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.PersonasABM',Persona=arg.Persona, esNuevo=arg.esNuevo)" width="650px" >
+    <vlayout>
+	    <hbox align="center">
+        	<label value="Id" class="boxlabel"/> <textbox value="@bind(vm.persona.id)" disabled="true" width="50px" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+        <label value="Nombre" class="boxlabel"/> <textbox value="@bind(vm.persona.nombre)" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+        <label value="Apellido" class="boxlabel"/> <textbox value="@bind(vm.persona.apellido)" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+        <label value="Tipo Doc" class="boxlabel"/> <combobox width="150px" model="@bind(vm.tipoDocumentoList)" value="@bind(vm.persona.tipo_doc.desc)" readonly="true" selectedItem="@bind(vm.persona.tipo_doc)">
+		<template name="model"> <comboitem label="@bind(each.desc)" value="(each)" /> </template> </combobox>
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+	<vlayout>
+	    <hbox align="center">
+        <label value="Nro Doc" class="boxlabel"/> <textbox value="@bind(vm.persona.nro_doc)" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+	<vlayout>
+	    <hbox align="center"> 
+        <label value="F. Nac." class="boxlabel"/> <datebox format="short" lenient="false" compact="false" buttonVisible="true" value="@bind(vm.persona.fecha_nacimiento)" />         
+		</hbox>
+	</vlayout>
+	<vlayout>
+		<listbox model = "@bind(vm.persona.cuentasBancarias)"  emptyMessage="No hay datos para mostrar">	    	
+			<listhead sizable="true">
+				<listheader label ="Id" 		  	  />
+				<listheader label ="Numero de cuenta" />
+			    <listheader label ="Nombre del banco" />	
+			    <listheader/>			    		
+			</listhead>
+			<template name="model">
+			   	<listitem>
+			  		<listcell label="@bind(each.id)" />
+			   		<listcell label="@bind(each.nroCuenta)" />
+			   		<listcell label="@bind(each.nombreBanco)" />
+			   		<listcell>
+		   				  <label value="Eliminar" onClick="@command('eliminarCta', cuentaBancaria = each, persona = vm.persona)"/>
+		   			</listcell>						   		
+			   	</listitem>	
+		    </template>
+	    </listbox>
+	</vlayout>
+	<hbox>
+		<vlayout>
+		    <hbox align="center"> 
+	        	<listbox id="list" model="@bind(vm.listadoErrores)" >
+			       <listhead>
+			           <listheader sort="auto" />
+			       </listhead>
+			       <template name="model">
+				       <listitem>
+							<listcell label="@load(each)" style="border-width=1px;border-color:black"/>
+						</listitem>
+					</template>
+			    </listbox>         
+			</hbox>
+		</vlayout>
+	</hbox>
+	<separator spacing="10px" />
+	<vlayout>
+	    <hbox align="center">
+        <button label="Guardar" onClick="@command('save')" />
+        <button label="Cancelar" onClick="@command('close')" />
+        <button label="Ver Cuentas" onClick="@command('verCuentas')" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+</window>
+</zk>

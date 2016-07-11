@@ -1,0 +1,178 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zul.Window;
+
+import com.ibm.icu.util.Calendar;
+import com.mercel.personas.model.Persona;
+import com.mercel.personas.model.TipoDocumento;
+import com.mercel.personas.service.TipoDocumentoServiceImpl;
+
+public class DialogABMPersonas extends SelectorComposer<Component> {
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String nombre;
+    private String apellido;
+    private TipoDocumento selectedTipoDoc;
+    private List<TipoDocumento> tipoDocumentoList = new ArrayList<TipoDocumento>();
+    private TipoDocumentoServiceImpl tipoDocumentoServiceImpl = new TipoDocumentoServiceImpl();
+    private int nro_doc;
+    private Date fecha_nacimiento;
+    private Persona persona;
+    
+    @Init
+	public void init(@BindingParam("Persona")Persona persona, @BindingParam("esNuevo")Boolean esNuevo){
+    	
+    	setTipoDocumentoList(tipoDocumentoServiceImpl.getTipoDocumentos());
+    	
+    	if (!esNuevo){
+	    	setId(persona.getId());
+	    	setNombre(persona.getNombre());
+	    	setApellido(persona.getApellido());
+	    	setSelectedTipoDoc(persona.getTipo_doc());
+	    	setNro_doc(persona.getNro_doc());
+	    	setFecha_nacimiento(persona.getFecha_nacimiento());
+    	}	
+	}
+ 
+    @Command
+	public void save(@ContextParam(ContextType.VIEW) Window comp) {
+    	
+    	if (getNombre().equals(""))
+    		System.out.println("Nombre Vacío");
+    	if (!esAlfabetico(getNombre()))
+    		System.out.println("Nombre Inválido");
+    	if (!verificarLongitud(getNombre(), 30))
+    		System.out.println("Nombre con longitud inválida");
+
+    	if (getApellido().equals(""))
+    		System.out.println("Apellido Vacío");    	
+    	if (!esAlfabetico(getApellido()))
+    		System.out.println("Apellido Inválido");
+    	if (!verificarLongitud(getApellido(), 50))
+    		System.out.println("Apellido con longitud inválida");
+    	
+    	if (Integer.toString(getNro_doc()).equals(""))
+    		System.out.println("Número de Documento Vacío");
+    	if (!esNumerico(getNro_doc()))
+    		System.out.println("Número de Documento Inválido");
+    	if (!verificarLongitud(Integer.toString(getNro_doc()), 8))
+    		System.out.println("Nombre con longitud inválida");
+    	
+    	if (getFecha_nacimiento().equals(""))
+    		System.out.println("Fecha de Nacimiento Vacía");
+    	if(!esFecha(getFecha_nacimiento()))
+    		System.out.println("Fecha de Nacimiento Inválida");
+    	
+    	persona = new Persona(getId(),getNombre(),getApellido(),getSelectedTipoDoc(),getNro_doc(),getFecha_nacimiento());
+		comp.detach();
+	}
+    
+    @Command
+	public void close(@ContextParam(ContextType.VIEW) Window comp) {
+		comp.detach();
+	}
+
+    public boolean esAlfabetico(String cadena){
+    	for(char ch : cadena.toCharArray()){
+            if(Character.isDigit(ch)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean esNumerico(int nro){
+    	for(char ch : Integer.toString(nro).toCharArray()){
+            if(!Character.isDigit(ch)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public boolean esFecha(Date fecha){
+    	Calendar dCal = Calendar.getInstance();
+		dCal.setTime(fecha);
+    	return Pattern.matches("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)", dCal.getTime().toString());
+    }
+    
+    public boolean verificarLongitud(String cadena, int longitud){
+    	return (cadena.length() <= longitud) ? true : false;
+    }
+    
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	
+	public TipoDocumento getSelectedTipoDoc() {
+		return selectedTipoDoc;
+	}
+
+	public void setSelectedTipoDoc(TipoDocumento selectedTipoDoc) {
+		this.selectedTipoDoc = selectedTipoDoc;
+	}
+
+	public int getNro_doc() {
+		return nro_doc;
+	}
+
+	public void setNro_doc(int nro_doc) {
+		this.nro_doc = nro_doc;
+	}
+
+	public Date getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public void setFecha_nacimiento(Date fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+	
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+
+	public List<TipoDocumento> getTipoDocumentoList() {
+		return tipoDocumentoList;
+	}
+
+	public void setTipoDocumentoList(List<TipoDocumento> tipoDocumentoList) {
+		this.tipoDocumentoList = tipoDocumentoList;
+	}
+}

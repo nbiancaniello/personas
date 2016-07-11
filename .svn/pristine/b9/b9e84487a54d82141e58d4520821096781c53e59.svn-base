@@ -1,0 +1,12 @@
+package com.mercel.personas.persistence;
+
+import com.mercel.personas.model.*;
+import java.util.List;
+
+public interface PersonaDAO {
+	
+	public List<Persona> findPersonas();
+	
+	public int getPersonasCantidad();
+	
+}

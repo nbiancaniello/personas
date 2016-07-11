@@ -1,0 +1,8 @@
+{ 
+  "personas":  
+[{"id":"1", "nombre":"Nicolas", "apellido":"Biancaniello", "tipo_doc":"DNI", "nro_doc":"32483157", "fecha_nacimiento":"01/09/1986"},
+ {"id":"2", "nombre":"Nicolas", "apellido":"Lobruno", "tipo_doc":"DNI", "nro_doc":"38902437", "fecha_nacimiento":"10/12/1993"},
+ {"id":"3", "nombre":"Alejandro", "apellido":"Acuna", "tipo_doc":"DNI", "nro_doc":"31992477", "fecha_nacimiento":"29/10/1985"},
+ {"id":"4", "nombre":"Alejandro", "apellido":"Valencia", "tipo_doc":"DNI", "nro_doc":"35441820", "fecha_nacimiento":"22/08/1990"},
+ {"id":"5", "nombre":"Alejo", "apellido":"Naveira", "tipo_doc":"DNI", "nro_doc":"27465109", "fecha_nacimiento":"31/03/1980"}]
+}

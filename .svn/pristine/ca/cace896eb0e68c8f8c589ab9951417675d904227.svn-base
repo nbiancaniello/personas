@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+<window apply="org.zkoss.bind.BindComposer" mode="modal" title="Dialog" border="normal" position="center,center"
+		viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.DialogABMPersonas',Persona=arg.Persona, esNuevo=arg.esNuevo)" >
+    <vlayout>
+        <label value="Id" class="boxlabel"/> <textbox value="@bind(vm.id)" disabled="true" />
+        <label value="Nombre" class="boxlabel"/> <textbox value="@bind(vm.nombre)" />
+        <label value="Apellido" class="boxlabel"/> <textbox value="@bind(vm.apellido)" />
+        <label value="Tipo Doc" class="boxlabel"/> <textbox value="@bind(vm.tipo_doc)" /> 
+        <label value="Nro Doc" class="boxlabel"/> <textbox value="@bind(vm.nro_doc)" /> 
+        <label value="F. Nac." class="boxlabel"/> <textbox value="@bind(vm.fecha_nacimiento)" /> 
+
+        <button label="Guardar" onClick="@command('save') @global-command('dlgSave',result=vm.persona)" />
+        <button label="Cancelar" onClick="@command('close') @global-command('dlgSave')" />
+    </vlayout>
+</window>
+</zk>

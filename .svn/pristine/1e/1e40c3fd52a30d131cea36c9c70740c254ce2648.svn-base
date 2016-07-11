@@ -1,0 +1,48 @@
+package com.mercel.personas.persistence;
+
+import java.io.Serializable;
+import java.util.Comparator;
+import com.mercel.personas.model.Persona;
+
+public class ListadoComparador implements Comparator<Object>, Serializable{
+
+	private static final long serialVersionUID = -4641442314168042295L;
+	private boolean asc = true;
+    private int type = 0;
+ 
+    public ListadoComparador(boolean asc, int type) {
+        this.asc = asc;
+        this.type = type;
+    }
+ 
+    public int getType() {
+        return type;
+    }
+ 
+    public void setType(int type) {
+        this.type = type;
+    }
+ 
+    @Override
+    public int compare(Object o1, Object o2) {
+        Persona persona1 = (Persona) o1;
+        Persona persona2 = (Persona) o2;
+        switch (type) {
+        case 1: 
+            return Integer.toString(persona1.getId()).compareTo(Integer.toString(persona2.getId())) * (asc ? 1 : -1);
+        case 2: 
+            return persona1.getNombre().compareTo(persona2.getNombre()) * (asc ? 1 : -1);
+        case 3: 
+            return persona1.getApellido().compareTo(persona2.getApellido()) * (asc ? 1 : -1);
+        case 4: 
+            return persona1.getTipo_doc().compareTo(persona2.getTipo_doc()) * (asc ? 1 : -1);
+        case 5: 
+            return persona1.getNro_doc().compareTo(persona2.getNro_doc()) * (asc ? 1 : -1);
+        case 6: 
+            return persona1.getFecha_nacimiento().compareTo(persona2.getFecha_nacimiento()) * (asc ? 1 : -1);
+        default: 
+            return 1;
+        }
+ 
+    }
+}

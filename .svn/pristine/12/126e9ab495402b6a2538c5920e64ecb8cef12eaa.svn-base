@@ -1,0 +1,150 @@
+package com.mercel.personas.persistence;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.inssjp.commons.paging.PagingLoadConfig;
+import com.mercel.personas.model.Persona;
+
+public class PersonaDAOImpl implements PersonaDAO{
+	public List<Persona> personas = new ArrayList<Persona>();
+	public int cantidad;
+	
+	public PersonaDAOImpl() {
+		
+	}
+	
+	public List<Persona> findPersonas(PagingLoadConfig paginado, String sortField, String sortOrder, String keyword, String columnSearch){
+		
+		List<Persona> lista = new ArrayList<Persona>(personas);
+		
+		if (keyword != null)
+			filtrarLista(lista,keyword,columnSearch);
+		
+		if ((paginado.getOffset() + paginado.getLimit()) > lista.size() &&
+				paginado.getOffset() > 0)
+			paginado.setLimit(lista.size() - paginado.getLimit());
+			
+		if (lista.size() < paginado.getLimit())
+			paginado.setLimit(lista.size());
+		
+		ordenarPersonas(lista, sortField, sortOrder);
+		
+		setCantidad(lista.size());
+		
+		return lista.subList(paginado.getOffset(), paginado.getOffset() + paginado.getLimit());
+	}
+	
+	public void ordenarPersonas(List<Persona> personas, String sortField, String sortOrder){
+		
+		switch (sortField.toString()) {
+        case "id":
+        	if (sortOrder == "asc")
+        		Collections.sort(personas, Persona.COMPARAR_POR_ID);
+        	else
+        		Collections.sort(personas, Persona.COMPARAR_POR_ID_DESC);
+        	break;
+        case "nombre":
+        	if (sortOrder == "asc")
+        		Collections.sort(personas, Persona.COMPARAR_POR_NOMBRE);
+        	else
+        		Collections.sort(personas, Persona.COMPARAR_POR_NOMBRE_DESC);
+        	break;
+        case "apellido":
+        	if (sortOrder == "asc")
+        		Collections.sort(personas, Persona.COMPARAR_POR_APELLIDO);
+        	else
+        		Collections.sort(personas, Persona.COMPARAR_POR_APELLIDO_DESC);
+        	break;
+        case "tipo_doc":
+        	if (sortOrder == "asc")
+        		Collections.sort(personas, Persona.COMPARAR_POR_TIPODOC);
+        	else
+        		Collections.sort(personas, Persona.COMPARAR_POR_TIPODOC_DESC);
+        	break;
+        case "nro_doc":
+        	if (sortOrder == "asc")
+        		Collections.sort(personas, Persona.COMPARAR_POR_NRODOC);
+        	else
+        		Collections.sort(personas, Persona.COMPARAR_POR_NRODOC_DESC);
+        	break;
+        case "fecha_nacimiento":
+        	if (sortOrder == "asc")
+        		Collections.sort(personas, Persona.COMPARAR_POR_FECHANAC);
+        	else
+        		Collections.sort(personas, Persona.COMPARAR_POR_FECHANAC_DESC);
+        	break;
+        default:
+        	if (sortOrder == "asc")
+        		Collections.sort(personas, Persona.COMPARAR_POR_ID);
+        	else
+        		Collections.sort(personas, Persona.COMPARAR_POR_ID_DESC);
+        	break;
+        }
+	}
+	
+	public void filtrarLista(List<Persona> personas, String keyword, String columnSearch){
+		int cant = personas.size() - 1;
+		
+		if (columnSearch == "id"){
+			for(int i=cant;i>=0;i--){
+				if (!personas.get(i).getId().toLowerCase().contains(keyword.toLowerCase()))
+					personas.remove(i);
+			}
+		}
+		
+		if (columnSearch == "nombre"){
+			for(int i=cant;i>=0;i--){
+				if (!personas.get(i).getNombre().toLowerCase().contains(keyword.toLowerCase()))
+					personas.remove(i);
+			}
+		}
+		
+		if (columnSearch == "apellido"){
+			for(int i=cant;i>=0;i--){
+				if (!personas.get(i).getApellido().toLowerCase().contains(keyword.toLowerCase()))
+					personas.remove(i);
+			}
+		}
+		
+		if (columnSearch == "tipo_doc"){
+			for(int i=cant;i>=0;i--){
+				if (!personas.get(i).getTipo_doc().toLowerCase().contains(keyword.toLowerCase()))
+					personas.remove(i);
+			}
+		}
+		
+		if (columnSearch == "nro_doc"){
+			for(int i=cant;i>=0;i--){
+				if (!personas.get(i).getNro_doc().toLowerCase().contains(keyword.toLowerCase()))
+					personas.remove(i);
+			}
+		}
+		
+		if (columnSearch == "fecha_nacimiento"){
+			for(int i=cant;i>=0;i--){
+				if (!personas.get(i).getFecha_nacimiento().toLowerCase().contains(keyword.toLowerCase()))
+					personas.remove(i);
+			}
+		}
+	}
+	
+	public int getPersonasCantidad(){
+		return cantidad;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	@Override
+	public List<Persona> findPersonas() {
+		return personas;
+	}
+	
+}

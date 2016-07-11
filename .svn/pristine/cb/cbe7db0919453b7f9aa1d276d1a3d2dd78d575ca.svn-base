@@ -1,0 +1,121 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
+
+import com.inssjp.commons.paging.PagingLoadConfig;
+import com.mercel.personas.model.*;
+import com.mercel.personas.service.*;
+
+public class VistaPersona {
+
+	private List<Persona> personaList = new ArrayList<Persona>();
+	private Persona persona = new Persona();
+	private int cant = 0;
+	private int limit = 3;
+	private int activePage;
+	private String sortOrder = "asc";
+	private List<String> filtro = new ArrayList<String>(Arrays.asList("","id","nombre","apellido","tipo_doc","nro_doc","fecha_nacimiento"));
+	private String keyword = new String();
+	private String itemCombo = new String();
+	
+	private PersonaServiceImpl personaServiceImpl = new PersonaServiceImpl(); 
+	
+	@Init
+    public void init() {
+		
+    }
+
+	@Command
+	@NotifyChange({"personaList","cant","activePage"})
+	public void search(){
+		
+		setPersonaList(personaServiceImpl.findPersonas(new PagingLoadConfig(limit,activePage * limit), "id", sortOrder,getKeyword(),itemCombo));
+		actualizarCantidad();
+		
+	}
+	
+	@Command
+	@NotifyChange({"personaList"})
+	public void sort(@BindingParam("sortField") String sortField){
+		
+		if (sortOrder == "asc")
+			sortOrder = "desc";
+		else
+			sortOrder = "asc";
+			
+		setPersonaList(personaServiceImpl.findPersonas(new PagingLoadConfig(limit,activePage * limit), sortField,sortOrder,getKeyword(),itemCombo));
+	}
+	
+	public void actualizarCantidad() {
+		setCant(personaServiceImpl.getPersonasCantidad());
+	}
+	
+	public List<Persona> getPersonaList() {
+		return personaList;
+	}
+	
+	public void setPersonaList(List<Persona> personaList) {
+		this.personaList = personaList;
+	}
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+	
+	 public int getCant() {
+		return cant;
+	}
+
+	public void setCant(int cant) {
+		this.cant = cant;
+	}
+
+	public int getLimit() {
+		return limit;
+	}
+
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	public int getActivePage() {
+		return activePage;
+	}
+	
+	public void setActivePage(int activePage){
+		this.activePage = activePage;
+	}
+
+	public List<String> getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(List<String> filtro) {
+		this.filtro = filtro;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getItemCombo() {
+		return itemCombo;
+	}
+
+	public void setItemCombo(String itemCombo) {
+		this.itemCombo = itemCombo;
+	}
+}

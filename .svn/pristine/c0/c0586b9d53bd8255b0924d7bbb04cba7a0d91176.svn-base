@@ -1,0 +1,11 @@
+package com.mercel.personas.service;
+
+import java.util.List;
+
+import com.mercel.personas.model.TipoDocumento;
+
+public interface TipoDocumentoService {
+
+	public List<TipoDocumento> getTipoDocumentos();
+	
+}

@@ -1,0 +1,35 @@
+package com.mercel.personas.persistence;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.text.*;
+import java.util.Date;
+
+import com.mercel.personas.model.Persona;
+
+public class PersonaDAOImpl implements PersonaDAO {
+	public List<Persona> personas = new ArrayList<Persona>();
+	
+	public PersonaDAOImpl() throws ParseException{
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		
+		String fecha = "01-09-1986";
+		Date inputDate = dateFormat.parse(fecha);
+		
+		personas.add(new Persona(1,"Nicolas","Biancaniello","DNI",32483157,inputDate));
+		
+		fecha = "10-12-1993";
+		inputDate = dateFormat.parse(fecha);
+		
+		personas.add(new Persona(2,"Nicolas","Lobruno","DNI",38902437,inputDate));
+	}
+	
+	public List<Persona> findPersonas(){
+		return personas;
+	}
+	
+	public int getPersonasCantidad(){
+		return personas.size();
+	}
+}

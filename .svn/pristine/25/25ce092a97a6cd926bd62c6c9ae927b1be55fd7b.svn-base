@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+<window apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.VistaPersona')">
+    <separator spacing="5px" />
+    <label value="Filtro" class="boxlabel" />
+	<combobox id="cmbFiltro" width="150px" model="@bind(vm.filtro)" selectedItem="@bind(vm.itemCombo)">
+        <template model="filtro">
+            <comboitem label="@load(each)" />
+        </template>
+    </combobox> <textbox value="@bind(vm.keyword)" /> <button label="Buscar" onClick="@command('search')" />
+    <separator spacing="10px" />
+	<listbox id="listbox" mold="paging" height="160px" model="@bind(vm.personaList)" emptyMessage="El listado de personas está vacío">
+        <listhead>
+            <listheader label="Id" onClick="@command('sort', listheader=self, sortField='id') "/>
+            <listheader label="Nombre" onClick="@command('sort', listheader=self, sortField='nombre')"/>
+            <listheader label="Apellido" onClick="@command('sort', listheader=self, sortField='apellido')"/>
+            <listheader label="Tipo Doc" onClick="@command('sort', listheader=self, sortField='tipo_doc')"/>
+            <listheader label="Nro Doc" onClick="@command('sort', listheader=self, sortField='nro_doc')"/>
+            <listheader label="F. Nac." onClick="@command('sort', listheader=self, sortField='fecha_nacimiento')"/>
+        </listhead>
+        <template name="model">
+            <listitem>
+                <listcell label="@bind(each.id)"></listcell>
+                <listcell label="@bind(each.nombre)"></listcell>
+                <listcell label="@bind(each.apellido)"></listcell>
+                <listcell label="@bind(each.tipo_doc)"></listcell>
+                <listcell label="@bind(each.nro_doc)"></listcell>
+                <listcell label="@bind(each.fecha_nacimiento)"></listcell>
+            </listitem>
+        </template>
+	</listbox>
+	<paging  onPaging="@command('search')" pageSize="@load(vm.limit)" totalSize="@load(vm.cant)" activePage="@save(vm.activePage)"/>
+	<vlayout>
+	<separator spacing="5px" />
+	Cantidad de registros recuperados: <label value="@bind(vm.cant)" />
+	</vlayout>
+</window>
+</zk>

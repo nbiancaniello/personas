@@ -1,0 +1,52 @@
+package com.mercel.personas.webapp.viewmodel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.BindingParam;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.zk.ui.Executions;
+
+import com.mercel.personas.model.CuentaBancaria;
+import com.mercel.personas.model.Persona;
+
+public class CuentasBancariasABM {
+    private CuentaBancaria cuenta = new CuentaBancaria();
+    private Persona persona = new Persona();
+	
+    @Init
+	public void onCreate(){
+    	setPersona((Persona) Executions.getCurrent().getAttribute("persona"));
+	}
+
+    @Command
+	public void save(@BindingParam("newCtaBancaria") CuentaBancaria newCtaBancaria) {
+    	if (getPersona().getCuentasBancarias() == null){
+			List<CuentaBancaria> listaCtas = new ArrayList<CuentaBancaria>();
+			newCtaBancaria.setId(0);
+			listaCtas.add(newCtaBancaria);
+			getPersona().setCuentasBancarias(listaCtas);
+		}else{
+			getPersona().getCuentasBancarias().add(this.cuenta);
+		}
+		BindUtils.postGlobalCommand(null, null, "refrescarCuentas", null);
+	}
+
+	public CuentaBancaria getCuenta() {
+		return cuenta;
+	}
+
+	public void setCuenta(CuentaBancaria cuenta) {
+		this.cuenta = cuenta;
+	}
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}  
+}

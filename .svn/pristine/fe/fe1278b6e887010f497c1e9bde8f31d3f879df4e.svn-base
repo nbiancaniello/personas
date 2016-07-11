@@ -1,0 +1,16 @@
+package com.mercel.personas.persistence;
+
+import com.inssjp.commons.paging.PagingLoadConfig;
+import com.mercel.personas.model.*;
+
+import java.util.List;
+
+public interface PersonaDAO {
+	
+	public List<Persona> findPersonas();
+	
+	public List<Persona> findPersonas(PagingLoadConfig paginado);
+	
+	public int getPersonasCantidad();
+	
+}

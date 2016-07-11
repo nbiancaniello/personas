@@ -1,0 +1,152 @@
+package com.mercel.personas.model;
+
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+
+public class Persona{
+	private Integer id;
+	private String nombre;
+	private String apellido;
+	private TipoDocumento tipo_doc;
+	private Integer nro_doc;
+	private Date fecha_nacimiento;
+	private List<CuentaBancaria> cuentasBancarias;
+	
+	public Persona(){
+	}
+	
+	public Persona (Integer id, String nombre, String apellido, TipoDocumento tipo_doc, Integer nro_doc, Date fecha_nacimiento, List<CuentaBancaria> cuentasBancarias){
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.tipo_doc = tipo_doc;
+		this.nro_doc = nro_doc;
+		
+		Calendar dCal = Calendar.getInstance();
+		dCal.setTime(fecha_nacimiento);
+		this.fecha_nacimiento = dCal.getTime();
+		this.cuentasBancarias = cuentasBancarias;
+	}
+	
+	public static Comparator<Persona> COMPARAR_POR_ID = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return Integer.toString(one.id).compareTo(Integer.toString(other.id));
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_ID_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (Integer.toString(one.id).compareTo(Integer.toString(other.id)) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NOMBRE = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.nombre.compareTo(other.nombre);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NOMBRE_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.nombre.compareTo(other.nombre) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_APELLIDO = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.apellido.compareTo(other.apellido);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_APELLIDO_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.apellido.compareTo(other.apellido) * -1);
+        }
+    };
+    
+	//    public static Comparator<Persona> COMPARAR_POR_TIPODOC = new Comparator<Persona>() {
+	//        public int compare(Persona one, Persona other) {
+	//            return one.tipo_doc.compareTo(other.tipo_doc);
+	//        }
+	//    };
+	//    
+	//    public static Comparator<Persona> COMPARAR_POR_TIPODOC_DESC = new Comparator<Persona>() {
+	//        public int compare(Persona one, Persona other) {
+	//            return (one.tipo_doc.compareTo(other.tipo_doc) * -1);
+	//        }
+	//    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NRODOC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return Integer.toString(one.nro_doc).compareTo(Integer.toString(other.nro_doc));
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_NRODOC_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (Integer.toString(one.nro_doc).compareTo(Integer.toString(other.nro_doc)) * -1);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_FECHANAC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return one.fecha_nacimiento.compareTo(other.fecha_nacimiento);
+        }
+    };
+    
+    public static Comparator<Persona> COMPARAR_POR_FECHANAC_DESC = new Comparator<Persona>() {
+        public int compare(Persona one, Persona other) {
+            return (one.fecha_nacimiento.compareTo(other.fecha_nacimiento) * -1);
+        }
+    };
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public TipoDocumento getTipo_doc() {
+		return tipo_doc;
+	}
+	public void setTipo_doc(TipoDocumento tipo_doc) {
+		this.tipo_doc = tipo_doc;
+	}
+	public Integer getNro_doc() {
+		return nro_doc;
+	}
+	public void setNro_doc(Integer nro_doc) {
+		this.nro_doc = nro_doc;
+	}
+	public void setFecha_nacimiento(Date fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
+	}
+
+	public Date getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public List<CuentaBancaria> getCuentasBancarias() {
+		return cuentasBancarias;
+	}
+
+	public void setCuentasBancarias(List<CuentaBancaria> cuentasBancarias) {
+		this.cuentasBancarias = cuentasBancarias;
+	}
+}

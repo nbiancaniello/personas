@@ -1,0 +1,60 @@
+package com.mercel.personas.persistence;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.inssjp.commons.paging.PagingLoadConfig;
+import com.mercel.personas.model.Persona;
+
+public class PersonaDAOImpl implements PersonaDAO{
+	public List<Persona> personas = new ArrayList<Persona>();
+	
+	public PersonaDAOImpl() {
+		
+		personas.add(new Persona("1","Nicolas","Biancaniello","DNI","32483157","01-09-1986"));		
+		personas.add(new Persona("2","Nicolas","Lobruno","DNI","38902437","10-12-1993"));
+		personas.add(new Persona("3","Alejandro","Acuña","DNI","31992477","29-10-1985"));
+		personas.add(new Persona("4","Alejandro","Valencia","DNI","35441820","22-08-1990"));
+		personas.add(new Persona("5","Alejo","Naveira","DNI","27465109","31-03-1980"));
+	}
+	
+	public List<Persona> findPersonas(PagingLoadConfig paginado, PagingLoadConfig sortField){
+		
+		ordenarPersonas(sortField);
+	
+		if ((paginado.getOffset() + paginado.getLimit()) > personas.size())
+			paginado.setLimit(personas.size()-paginado.getLimit());
+		
+		return personas.subList(paginado.getOffset(), paginado.getOffset() + paginado.getLimit());
+	}
+	
+	public void ordenarPersonas(PagingLoadConfig sortField){
+		switch (sortField.toString()) {
+        case "id":
+        	Collections.sort(personas, Persona.COMPARAR_POR_ID);
+        case "nombre":
+        	Collections.sort(personas, Persona.COMPARAR_POR_NOMBRE);
+        case "apellido":
+        	Collections.sort(personas, Persona.COMPARAR_POR_APELLIDO);
+        case "tipo_doc":
+        	Collections.sort(personas, Persona.COMPARAR_POR_TIPODOC);
+        case "nro_doc":
+        	Collections.sort(personas, Persona.COMPARAR_POR_NRODOC);
+        case "fecha_nacimiento":
+        	Collections.sort(personas, Persona.COMPARAR_POR_FECHANAC);
+        default: 
+        	Collections.sort(personas, Persona.COMPARAR_POR_ID);
+        }
+	}
+	
+	public int getPersonasCantidad(){
+		return personas.size();
+	}
+
+	@Override
+	public List<Persona> findPersonas() {
+		return personas;
+	}
+	
+}

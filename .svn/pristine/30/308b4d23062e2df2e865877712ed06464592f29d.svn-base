@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.VistaPersona')">
+	<hbox align="center">
+    	<button label="Buscar" onClick="@command('search')" />
+    	Cantidad de registros recuperados: <label value="@bind(vm.cant)"  />
+	</hbox>
+	<listbox height="160px" model="@bind(vm.personaList)" emptyMessage="El listado de personas está vacío">
+        <listhead>
+            <listheader label="Id" />
+            <listheader label="Nombre" />
+            <listheader label="Apellido" />
+            <listheader label="Tipo Doc" />
+            <listheader label="Nro Doc" />
+            <listheader label="F. Nac." />
+        </listhead>
+        <template name="model">
+            <listitem>
+                <listcell label="@bind(each.id)"></listcell>
+                <listcell label="@bind(each.nombre)"></listcell>
+                <listcell label="@bind(each.apellido)"></listcell>
+                <listcell label="@bind(each.tipo_doc)"></listcell>
+                <listcell label="@bind(each.nro_doc)"></listcell>
+                <listcell label="@bind(each.fecha_nacimiento)"></listcell>
+            </listitem>
+        </template>
+	</listbox>
+</window>

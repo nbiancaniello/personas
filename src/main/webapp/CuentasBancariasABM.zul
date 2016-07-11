@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+<window apply="org.zkoss.bind.BindComposer" mode="modal" title="Agregar Nueva Cuenta" border="normal" position="center,center"
+		viewModel="@id('vm') @init('com.mercel.personas.webapp.viewmodel.CuentasBancariasABM')" width="300px" closable="true" >
+    <vlayout>
+	    <hbox align="center">
+        <label value="Nro de Cuenta" class="boxlabel"/> <textbox value="@save(vm.cuenta.nroCuenta)" width="150px"/>
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+    <vlayout>
+	    <hbox align="center">
+        <label value="Nombre de Banco" class="boxlabel"/> <textbox value="@save(vm.cuenta.nombreBanco)" width="150px"/>
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+	<vlayout>
+	    <hbox align="center">
+        <button label="Guardar" onClick="@command('save')" />
+		</hbox>
+	</vlayout>
+	<separator spacing="10px" />
+</window>
+</zk>
