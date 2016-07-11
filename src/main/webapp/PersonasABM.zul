@@ -44,7 +44,7 @@
 			<listhead sizable="true">
 				<listheader label ="Id" 		  	  />
 				<listheader label ="Numero de cuenta" />
-			    <listheader label ="Nombre del banco" />	
+			    <listheader label ="Nombre de banco" />	
 			    <listheader/>			    		
 			</listhead>
 			<template name="model">
